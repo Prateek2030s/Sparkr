@@ -9,7 +9,7 @@ export default function VideoCallPage() {
     if (typeof window !== 'undefined' && jitsiRef.current) {
       const domain = 'meet.jit.si';
       const options = {
-        roomName: 'MyAwesomeRoom123', // Change this to anything you want
+        roomName: 'SparkrDemoRoom123', // customize as needed
         parentNode: jitsiRef.current,
         width: '100%',
         height: 600,
@@ -19,6 +19,8 @@ export default function VideoCallPage() {
         },
         interfaceConfigOverwrite: {
           SHOW_JITSI_WATERMARK: false,
+          SHOW_BRAND_WATERMARK: false,
+          SHOW_POWERED_BY: false,
         },
       };
 
@@ -35,20 +37,25 @@ export default function VideoCallPage() {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-black text-gray-900 dark:text-white items-center justify-center p-6 space-y-6">
+    <main className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-purple-200 dark:from-[#1a0e2a] dark:to-[#2e1e47] text-purple-900 dark:text-purple-200 p-6 space-y-6">
       <h1 className="text-3xl sm:text-4xl font-bold text-center">
-        🔗 Join the Video Conference
+        🎥 Welcome to Your Sparkr Meeting Room
       </h1>
-      <p className="text-center text-sm sm:text-base max-w-xl">
-        This is a demo Jitsi Meet video call embedded into a custom Next.js app. Share the room link to invite others.
-      </p>
       <div
         ref={jitsiRef}
-        className="w-full max-w-5xl rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-900"
+        className="w-full max-w-6xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-[#1f1a2e]"
         style={{ minHeight: 600 }}
       />
-      <p className="text-xs text-gray-500">
-        Powered by <a href="https://jitsi.org" target="_blank" rel="noreferrer" className="underline">Jitsi Meet</a>
+      <p className="text-xs text-purple-700 dark:text-purple-300">
+        Powered by{' '}
+        <a
+          href="https://jitsi.org"
+          target="_blank"
+          rel="noreferrer"
+          className="underline hover:text-purple-900 dark:hover:text-white"
+        >
+          Jitsi Meet
+        </a>
       </p>
     </main>
   );
