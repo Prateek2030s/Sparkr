@@ -1,3 +1,4 @@
+// components/ui/color-mode.ts
 'use client'
 
 import { ClientOnly, IconButton, Skeleton, Span } from '@chakra-ui/react'
@@ -25,7 +26,7 @@ export function useColorMode() {
   }
 }
 
-export function useColorModeValue(light: any, dark: any) {
+export function useColorModeValue<T>(light: T, dark: T): T {
   const { colorMode } = useColorMode()
   return colorMode === 'dark' ? dark : light
 }
@@ -35,12 +36,13 @@ export function ColorModeIcon() {
   return colorMode === 'dark' ? <LuMoon /> : <LuSun />
 }
 
-export const ColorModeButton = React.forwardRef(
+export const ColorModeButton = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof IconButton>>(
   function ColorModeButton(props, ref) {
     const { toggleColorMode } = useColorMode()
     return (
       <ClientOnly fallback={<Skeleton boxSize='8' />}>
         <IconButton
+          ref={ref}
           onClick={toggleColorMode}
           variant='ghost'
           aria-label='Toggle color mode'
