@@ -18,7 +18,7 @@ import { useState } from 'react';
 const quiz = [
   { question: 'What is 2 + 2?', correctAnswer: '4' },
   { question: 'Capital of France?', correctAnswer: 'Paris' },
-  { question: 'Which is best team in LifeHack25. Please type the team ID', correctAnswer: '17' },
+  { question: 'Which is best team in LifeHack25. Please type the team ID.', correctAnswer: '17' },
   { question: 'Spider has how many legs?', correctAnswer: '8' },
   { question: 'Planet we live on?', correctAnswer: 'Earth' },
   { question: 'Team 17 will win. True or False?', correctAnswer: 'True' },
@@ -102,7 +102,7 @@ export default function QuizPage() {
   return (
     <Box maxW="800px" mx="auto" p={8}>
       <Heading size="lg" mb={6} textAlign="center">
-        {isFinished ? '🏆 Leaderboard — Classroom: ' + cid : '📝 Quiz — Classroom: ' + cid}
+        {isFinished ? '🏆 Leaderboard — Classroom: ' + cid : '📝 Linear Algebra Practice 1 ' /*+ cid*/}
       </Heading>
 
       {!isFinished ? (
