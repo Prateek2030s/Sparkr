@@ -6,9 +6,9 @@ import {
   Button,
   Heading,
   Input,
-  VStack,
-  Container,
   Text,
+  VStack,
+  Flex,
 } from '@chakra-ui/react';
 
 export default function StudentJoinPage() {
@@ -36,7 +36,7 @@ export default function StudentJoinPage() {
         roomName,
         parentNode: jitsiRef.current,
         width: '100%',
-        height: 600,
+        height: '80vh', // Use viewport height for responsive sizing
         configOverwrite: {
           startWithAudioMuted: true,
           startWithVideoMuted: false,
@@ -45,6 +45,15 @@ export default function StudentJoinPage() {
           SHOW_JITSI_WATERMARK: false,
           SHOW_BRAND_WATERMARK: false,
           SHOW_POWERED_BY: false,
+          // Additional options to maximize video space
+          TOOLBAR_BUTTONS: [
+            'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+            'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+            'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+            'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+            'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
+          ],
+          VERTICAL_FILMSTRIP: false,
         },
       };
 
@@ -62,67 +71,81 @@ export default function StudentJoinPage() {
     }
   }, [joined, meetingId]);
 
-  function extractRoomName(input: string) {
+  // ... (keep the rest of your functions the same)
+    const extractRoomName = (input: string) => {
     try {
       const url = new URL(input);
       return url.pathname.split('/').filter(Boolean).pop() || input;
     } catch {
       return input.trim();
     }
-  }
+  };
 
-  function handleJoin() {
+  const handleJoin = () => {
     if (meetingId.trim() === '') {
       setError('Please enter a valid meeting ID or link.');
       return;
     }
     setError('');
     setJoined(true);
-  }
+  };
 
   return (
-    <Box
+    <Flex
       minH="100vh"
-      bgGradient="linear(to-br, #f3e8ff, #d6bcfa)"
-      color="#2D006C"
-      py={12}
-      px={6}
+      bg="gray.900"
+      align="center"
+      justify="center"
+      px={4}
+      py={8}
     >
-      <Container maxW="container.md">
-        {!joined && (
-          <Heading textAlign="center" size="xl" mb={8}>
-            Join Your Sparkr Meeting Room
-          </Heading>
-        )}
-
+      <Box
+        bg="gray.800"
+        p={{ base: 6, md: 10 }}
+        borderRadius="2xl"
+        boxShadow="2xl"
+        w="full"
+        maxW="6xl" // Increased from "lg" to "6xl" for wider container
+      >
         {!joined ? (
-          <VStack spacing={4}>
+          <VStack spacing={6} align="stretch">
+            <Heading
+              fontSize={{ base: '2xl', md: '3xl' }}
+              color="white"
+              textAlign="center"
+            >
+              Join a Sparkr Meeting
+            </Heading>
+
             <Input
+              size="lg"
               placeholder="Enter Meeting ID or Link"
               value={meetingId}
               onChange={(e) => setMeetingId(e.target.value)}
-              size="lg"
-              bg="white"
-              borderColor="#805ad5"
+              bg="gray.700"
+              color="white"
+              borderColor="teal.400"
+              _placeholder={{ color: 'gray.400' }}
               _focus={{
-                borderColor: '#6b46c1',
-                boxShadow: '0 0 0 1px #6b46c1',
+                borderColor: 'teal.300',
+                boxShadow: '0 0 0 1px teal.300',
               }}
             />
+
             {error && (
-              <Text color="red.500" fontSize="sm" textAlign="left" w="full">
+              <Text fontSize="sm" color="red.400" textAlign="left">
                 {error}
               </Text>
             )}
+
             <Button
-              bg="#6b46c1"
-              color="white"
-              _hover={{ bg: '#553c9a' }}
+              colorScheme="teal"
               size="lg"
               onClick={handleJoin}
-              w="full"
+              isDisabled={!meetingId.trim()}
               rounded="lg"
-              shadow="md"
+              fontWeight="bold"
+              fontSize="lg"
             >
               Join Meeting
             </Button>
@@ -130,16 +153,16 @@ export default function StudentJoinPage() {
         ) : (
           <Box
             ref={jitsiRef}
-            mt={6}
+            mt={4}
             w="full"
-            minH="600px"
+            h="80vh" // Match the height with Jitsi options
+            minH="600px" // Minimum height
             borderRadius="xl"
             overflow="hidden"
-            boxShadow="2xl"
             bg="white"
           />
         )}
-      </Container>
-    </Box>
+      </Box>
+    </Flex>
   );
 }
