@@ -18,26 +18,26 @@ import { useState } from 'react';
 const quiz = [
   { question: 'What is 2 + 2?', correctAnswer: '4' },
   { question: 'Capital of France?', correctAnswer: 'Paris' },
-  { question: 'Color of sky?', correctAnswer: 'Blue' },
+  { question: 'Which is best team in LifeHack25. Please type the team ID', correctAnswer: '17' },
   { question: 'Spider has how many legs?', correctAnswer: '8' },
   { question: 'Planet we live on?', correctAnswer: 'Earth' },
-  { question: 'Programming language?', correctAnswer: 'Python' },
+  { question: 'Team 17 will win. True or False?', correctAnswer: 'True' },
   { question: 'What is H2O?', correctAnswer: 'Water' },
   { question: '5 x 5 = ?', correctAnswer: '25' },
-  { question: 'Which is a fruit?', correctAnswer: 'Banana' },
+  { question: 'Which is a fruit that has a yellow skin?', correctAnswer: 'Banana' },
   { question: 'Opposite of up?', correctAnswer: 'Down' },
 ];
 
 const students = [
   {
-    name: 'Alice',
-    answers: ['4', 'Paris', 'Blue', '8', 'Earth', 'Python', 'Water', '25', 'Banana', 'Down'],
-    score: 8,
+    name: 'Khant Minn',
+    answers: ['4', 'Paris', '17', '8', 'Earth', 'True', 'Water', '25', 'Lemon', 'Down'],
+    score: 9,
   },
   {
-    name: 'Bob',
-    answers: ['3', 'Berlin', 'Red', '6', 'Mars', 'Snake', 'Oxygen', '15', 'Carrot', 'Up'],
-    score: 6,
+    name: 'Sujith',
+    answers: ['4', 'Berlin', '17', '6', 'Mars', 'True', 'Oxygen', '15', 'Banana', 'Up'],
+    score: 4,
   },
 ];
 
