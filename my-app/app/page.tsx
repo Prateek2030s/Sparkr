@@ -1,91 +1,59 @@
-'use client';
+// app/page.tsx
+"use client";
 
-import Link from 'next/link';
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Spinner, Center } from "@chakra-ui/react";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { app } from "../lib/firebase";
 
-export default function Page() {
+export default function RoleRouter() {
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user: User | null) => {
+      console.log("Auth state changed:", user);
+      if (!user) {
+        console.log("→ No user, redirecting to /auth");
+        router.replace("/auth");
+        return;
+      }
+
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (!userDoc.exists()) {
+          console.warn("→ No Firestore doc for this user, sending to /auth");
+          router.replace("/auth");
+          return;
+        }
+
+        const data = userDoc.data();
+        console.log("→ Firestore data:", data);
+        if (data.role === "teacher") {
+          console.log("→ Role=teacher, redirecting to /teacher");
+          router.replace("/teacher");
+        } else if (data.role === "student") {
+          console.log("→ Role=student, redirecting to /student");
+          router.replace("/student");
+        } else {
+          console.error("→ Unknown role, redirecting to /auth");
+          router.replace("/auth");
+        }
+      } catch (err) {
+        console.error("Error fetching user role:", err);
+        router.replace("/auth");
+      }
+    });
+
+    return unsub;
+  }, [auth, db, router]);
+
   return (
-    <Box
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgGradient="linear(to-br, #f3e8ff, #d6bcfa)"
-      color="gray.900"
-      px={6}
-      py={12}
-      _dark={{
-        bgGradient: 'linear(to-br, #1a0e2a, #2e1e47)',
-        color: 'white',
-      }}
-    >
-      <Container maxW="2xl" textAlign="center">
-        <VStack spacing={6}>
-          <Heading
-            as="h1"
-            size="3xl"
-            fontWeight="extrabold"
-            color="purple.700"
-            _dark={{ color: 'purple.300' }}
-          >
-            Welcome to{' '}
-            <Box as="span" color="purple.900" _dark={{ color: 'purple.400' }}>
-              Sparkr
-            </Box>
-          </Heading>
-          <Text fontSize={{ base: 'lg', sm: 'xl' }} color="purple.800" _dark={{ color: 'purple.200' }}>
-            A smarter way to connect, learn, and grow. Choose your role to get started.
-          </Text>
-          <Stack
-            direction={{ base: 'column', sm: 'row' }}
-            spacing = {4} 
-            pt={4}
-            justify="center"
-            align="center"
-          >
-            <Link href="/studentJoin" passHref>
-              <Button
-                as="a"
-                size="lg"
-                bg="purple.700"
-                color="white"
-                _hover={{ bg: 'purple.800' }}
-                rounded="full"
-                shadow="md"
-              >
-                I'm a Student
-              </Button>
-            </Link>
-            <Link href="/teacherJoin" passHref>
-              <Button
-                as="a"
-                size="lg"
-                variant="outline"
-                color="purple.700"
-                borderColor="purple.700"
-                _dark={{
-                  color: 'purple.300',
-                  borderColor: 'purple.300',
-                  _hover: { bg: 'purple.900' },
-                }}
-                _hover={{ bg: 'purple.100' }}
-                rounded="full"
-                shadow="md"
-              >
-                I'm a Teacher
-              </Button>
-            </Link>
-          </Stack>
-        </VStack>
-      </Container>
-    </Box>
+    <Center h="100vh">
+      <Spinner size="xl" aria-label="Loading…" />
+    </Center>
   );
 }
