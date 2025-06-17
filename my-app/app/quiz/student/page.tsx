@@ -32,12 +32,12 @@ const students = [
   {
     name: 'Alice',
     answers: ['4', 'Paris', 'Blue', '8', 'Earth', 'Python', 'Water', '25', 'Banana', 'Down'],
-    score: 10,
+    score: 8,
   },
   {
     name: 'Bob',
     answers: ['3', 'Berlin', 'Red', '6', 'Mars', 'Snake', 'Oxygen', '15', 'Carrot', 'Up'],
-    score: 0,
+    score: 6,
   },
 ];
 
