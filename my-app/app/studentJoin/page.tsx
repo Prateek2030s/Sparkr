@@ -1,14 +1,23 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  VStack,
+  Container,
+  Text,
+} from '@chakra-ui/react';
 
 export default function StudentJoinPage() {
   const [meetingId, setMeetingId] = useState('');
   const [joined, setJoined] = useState(false);
+  const [error, setError] = useState('');
   const jitsiRef = useRef<HTMLDivElement>(null);
   const jitsiApiRef = useRef<any>(null);
 
-  // Clean up Jitsi API when component unmounts or meetingId changes
   useEffect(() => {
     return () => {
       if (jitsiApiRef.current) {
@@ -18,7 +27,6 @@ export default function StudentJoinPage() {
     };
   }, []);
 
-  // Initialize Jitsi when joined and meetingId valid
   useEffect(() => {
     if (joined && jitsiRef.current && meetingId.trim()) {
       const domain = 'meet.jit.si';
@@ -40,7 +48,6 @@ export default function StudentJoinPage() {
         },
       };
 
-      // Load script if needed
       if (!window.JitsiMeetExternalAPI) {
         const script = document.createElement('script');
         script.src = 'https://meet.jit.si/external_api.js';
@@ -55,58 +62,84 @@ export default function StudentJoinPage() {
     }
   }, [joined, meetingId]);
 
-  // Helper: extract room name from link or just use input as room name
   function extractRoomName(input: string) {
     try {
-      // If user pastes full URL, parse it
       const url = new URL(input);
-      // URL path after last '/' is room
       return url.pathname.split('/').filter(Boolean).pop() || input;
     } catch {
-      // If invalid URL, assume input is room name directly
       return input.trim();
     }
   }
 
   function handleJoin() {
     if (meetingId.trim() === '') {
-      alert('Please enter a valid meeting ID or link');
+      setError('Please enter a valid meeting ID or link.');
       return;
     }
+    setError('');
     setJoined(true);
   }
 
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-purple-200 dark:from-[#1a0e2a] dark:to-[#2e1e47] text-purple-900 dark:text-purple-200 p-6 space-y-6">
-      {!joined && (
-  <h1 className="text-3xl sm:text-4xl font-bold text-center">
-    Join Your Sparkr Meeting Room
-  </h1>
-)}
+    <Box
+      minH="100vh"
+      bgGradient="linear(to-br, #f3e8ff, #d6bcfa)"
+      color="#2D006C"
+      py={12}
+      px={6}
+    >
+      <Container maxW="container.md">
+        {!joined && (
+          <Heading textAlign="center" size="xl" mb={8}>
+            Join Your Sparkr Meeting Room
+          </Heading>
+        )}
 
-      {!joined ? (
-        <div className="flex flex-col space-y-4 w-full max-w-md">
-          <input
-            type="text"
-            placeholder="Enter Meeting ID or Link"
-            value={meetingId}
-            onChange={e => setMeetingId(e.target.value)}
-            className="px-4 py-3 rounded-lg border border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 dark:bg-[#2e1e47] dark:border-purple-700 dark:text-purple-200"
+        {!joined ? (
+          <VStack spacing={4}>
+            <Input
+              placeholder="Enter Meeting ID or Link"
+              value={meetingId}
+              onChange={(e) => setMeetingId(e.target.value)}
+              size="lg"
+              bg="white"
+              borderColor="#805ad5"
+              _focus={{
+                borderColor: '#6b46c1',
+                boxShadow: '0 0 0 1px #6b46c1',
+              }}
+            />
+            {error && (
+              <Text color="red.500" fontSize="sm" textAlign="left" w="full">
+                {error}
+              </Text>
+            )}
+            <Button
+              bg="#6b46c1"
+              color="white"
+              _hover={{ bg: '#553c9a' }}
+              size="lg"
+              onClick={handleJoin}
+              w="full"
+              rounded="lg"
+              shadow="md"
+            >
+              Join Meeting
+            </Button>
+          </VStack>
+        ) : (
+          <Box
+            ref={jitsiRef}
+            mt={6}
+            w="full"
+            minH="600px"
+            borderRadius="xl"
+            overflow="hidden"
+            boxShadow="2xl"
+            bg="white"
           />
-          <button
-            onClick={handleJoin}
-            className="bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
-          >
-            Join Meeting
-          </button>
-        </div>
-      ) : (
-        <div
-          ref={jitsiRef}
-          className="w-full max-w-6xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-[#1f1a2e]"
-          style={{ minHeight: 600 }}
-        />
-      )}
-    </main>
+        )}
+      </Container>
+    </Box>
   );
 }
