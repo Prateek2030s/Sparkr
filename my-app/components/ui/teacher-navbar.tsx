@@ -56,7 +56,7 @@ export const Navbar = () => {
         Quizzes
       </Button>
       <Button 
-        onClick={() => router.push(`/teacher/classroom/${classId}/conference/?room=Class-Id:${encodeURIComponent(classId)}`)} 
+        onClick={() => router.push(`/teacher/classroom/${classId}/conference/?room=Class-Id-${encodeURIComponent(classId)}`)} 
         colorPalette="blue" 
         variant="ghost" 
         size="md" 
