@@ -11,16 +11,16 @@ import {
 import { useState } from 'react';
 
 // Hardcoded quiz questions
-const hardcodedQuiz = [
+const quiz = [
   { question: 'What is 2 + 2?', correctAnswer: '4' },
   { question: 'Capital of France?', correctAnswer: 'Paris' },
-  { question: 'Color of sky?', correctAnswer: 'Blue' },
+  { question: 'Which is best team in LifeHack25. Please type the team ID', correctAnswer: '17' },
   { question: 'Spider has how many legs?', correctAnswer: '8' },
   { question: 'Planet we live on?', correctAnswer: 'Earth' },
-  { question: 'Programming language?', correctAnswer: 'Python' },
+  { question: 'Team 17 will win. True or False?', correctAnswer: 'True' },
   { question: 'What is H2O?', correctAnswer: 'Water' },
   { question: '5 x 5 = ?', correctAnswer: '25' },
-  { question: 'Which is a fruit?', correctAnswer: 'Banana' },
+  { question: 'Which is a fruit that has a yellow skin?', correctAnswer: 'Banana' },
   { question: 'Opposite of up?', correctAnswer: 'Down' },
 ];
 
@@ -30,7 +30,7 @@ export default function TeacherCreateQuizPage() {
 
   const handleCreateQuiz = () => {
     // Simulate quiz creation by saving to local storage (or this can be changed to Firestore)
-    localStorage.setItem(`quiz-${cid}`, JSON.stringify(hardcodedQuiz));
+    localStorage.setItem(`quiz-${cid}`, JSON.stringify(quiz));
     setCreated(true);
   };
 
