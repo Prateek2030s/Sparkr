@@ -1,7 +1,6 @@
 // app/layout.tsx
 import "./globals.css";
 import { Provider } from "../components/ui/provider";
-import { Shell } from "../components/ui/Shell";    // ← add this import
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";

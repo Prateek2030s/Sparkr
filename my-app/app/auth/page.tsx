@@ -47,7 +47,18 @@ export default function AuthPage() {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-      router.push("/");
+      const response = await fetch('/api/set-token', {
+        method: 'POST',
+        body: JSON.stringify({ email, role }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        router.push(`/${role}/dashboard`);
+      }
+      
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       window.alert(msg);
