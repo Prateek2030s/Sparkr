@@ -1,84 +1,90 @@
-"use client"
-import {
-  Box,
-  Button,
-  HStack, 
-  Icon,
-  Text
-} from '@chakra-ui/react'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { HiAcademicCap } from "react-icons/hi2";
+'use client';
 
+import { Box, Flex, Icon, Text, Button, HStack, Spacer } from '@chakra-ui/react';
+import { HiAcademicCap } from 'react-icons/hi2';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 
 export const Navbar = () => {
-  const router = useRouter()
-  const classId = useParams().classId as unknown as number
+  const router = useRouter();
+  const { classId } = useParams();
   const searchParams = useSearchParams();
   const className = searchParams.get('name') || 'DefaultRoom';
 
   return (
-    <div className="w-full h-16 bg-slate-800 flex items-center justify-center shadow-md">
-  <div className="w-[95%] flex items-center justify-between">
-    <Box
-      textStyle="xl"
-      fontWeight="semibold"
-      letterSpacing="wider"
-      font="Helvetica"
-    >
-      <HStack>
-        <Icon size="xl">
-          <HiAcademicCap />
-        </Icon>
-        <Text fontSize="xl">
-          Sparkr
-        </Text>
-      </HStack>
+    <Box as="nav" w="full" bg="gray.800" shadow="md" py={3}>
+      <Flex
+        maxW="7xl"
+        mx="auto"
+        px={{ base: 4, md: 6, lg: 8 }}
+        align="center"
+        h="60px"
+      >
+        {/* Brand */}
+        <HStack spacing={2}>
+          <Icon as={HiAcademicCap} fontSize="2xl" color="white" />
+          <Text fontSize="xl" fontWeight="bold" color="white">
+            Sparkr
+          </Text>
+        </HStack>
+
+        <Spacer />
+
+        {/* Nav Links */}
+        <HStack
+          spacing={6}
+          display={{ base: 'none', md: 'flex' }}
+          bg="gray.700"
+          px={4}
+          py={2}
+          borderRadius="lg"
+        >
+          <Button
+            variant="ghost"
+            color="white"
+            _hover={{ color: 'teal.300', bg: 'transparent' }}
+            onClick={() => router.push('/teacher/dashboard')}
+          >
+            Dashboard
+          </Button>
+          <Button
+            variant="ghost"
+            color="white"
+            _hover={{ color: 'teal.300', bg: 'transparent' }}
+            onClick={() => router.push('/quiz')}
+          >
+            Quizzes
+          </Button>
+          <Button
+            variant="ghost"
+            color="white"
+            _hover={{ color: 'teal.300', bg: 'transparent' }}
+            onClick={() =>
+              router.push(
+                `/teacher/classroom/${classId}/conference/?room=${encodeURIComponent(className)}`
+              )
+            }
+          >
+            Live Class
+          </Button>
+        </HStack>
+
+        {/* Logout */}
+        <Button
+          ml={4}
+          color="red.400"
+          border="1px solid"
+          borderColor="red.400"
+          bg="transparent"
+          _hover={{ bg: 'red.500', color: 'white' }}
+          px={4}
+          py={1}
+          borderRadius="md"
+          fontSize="sm"
+          onClick={() => router.push('/logout')}
+        >
+          Logout
+        </Button>
+      </Flex>
     </Box>
-    
-    {/* Centered navigation buttons */}
-    <div className="flex items-center gap-5 bg-slate-700/50 rounded-lg p-1">
-      <Button 
-        onClick={() => router.push("/teacher/dashboard")} 
-        colorPalette="blue" 
-        variant="ghost" 
-        size="md" 
-        rounded="md"
-        className="px-4"
-      >
-        Dashboard
-      </Button>
-      <Button 
-        onClick={() => router.push("/quiz")} 
-        colorPalette="blue" 
-        variant="ghost" 
-        size="md" 
-        rounded="md"
-        className="px-4"
-      >
-        Quizzes
-      </Button>
-      <Button 
-        onClick={() => router.push(`/teacher/classroom/${classId}/conference/?room=${encodeURIComponent(className)}`)} 
-        colorPalette="blue" 
-        variant="ghost" 
-        size="md" 
-        rounded="md"
-        className="px-4"
-      >
-        Live Class
-      </Button>
-    </div>
-    
-    <Button 
-      onClick={() => router.push("/logout")} 
-      colorPalette="red" 
-      variant="ghost" 
-      size="md" 
-      rounded="lg"
-    >
-      Logout
-    </Button>
-  </div>
-</div>
-  )
-}
+  );
+};
