@@ -6,13 +6,15 @@ import {
   Icon,
   Text
 } from '@chakra-ui/react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { HiAcademicCap } from "react-icons/hi2";
 
 
 export const Navbar = () => {
   const router = useRouter()
   const classId = useParams().classId as unknown as number
+  const searchParams = useSearchParams();
+  const className = searchParams.get('name') || 'DefaultRoom';
 
   return (
     <div className="w-full h-16 bg-slate-800 flex items-center justify-center shadow-md">
@@ -56,7 +58,7 @@ export const Navbar = () => {
         Quizzes
       </Button>
       <Button 
-        onClick={() => router.push(`/teacher/classroom/${classId}/conference/?room=Class-Id-${encodeURIComponent(classId)}`)} 
+        onClick={() => router.push(`/teacher/classroom/${classId}/conference/?room=${encodeURIComponent(className)}`)} 
         colorPalette="blue" 
         variant="ghost" 
         size="md" 

@@ -19,16 +19,30 @@ export default function TeacherVideoCallPage() {
       roomName: className,
       parentNode: jitsiRef.current,
       width: '100%',
-      height: 600,
+      height: '100%', // Changed to 100% to fill container
       configOverwrite: {
         startWithAudioMuted: true,
         startWithVideoMuted: false,
         prejoinPageEnabled: false,
+        // Add these to force dark theme in Jitsi
+        theme: 'dark',
+        filmStripOnly: false,
       },
       interfaceConfigOverwrite: {
         SHOW_JITSI_WATERMARK: true,
         SHOW_BRAND_WATERMARK: true,
         SHOW_POWERED_BY: false,
+        // Dark mode specific config
+        DEFAULT_BACKGROUND: '#000000',
+        DEFAULT_REMOTE_DISPLAY_NAME: 'Participant',
+        DEFAULT_LOCAL_DISPLAY_NAME: 'Me',
+        TOOLBAR_BUTTONS: [
+          'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+          'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+          'livestreaming', 'settings', 'raisehand', 'videoquality', 'filmstrip',
+          'invite', 'feedback', 'stats', 'shortcuts', 'tileview', 'select-background',
+          'download', 'help', 'mute-everyone', 'security'
+        ],
       },
     };
 
@@ -37,6 +51,14 @@ export default function TeacherVideoCallPage() {
         if (window.JitsiMeetExternalAPI) {
           const api = new window.JitsiMeetExternalAPI(domain, options);
           setJitsi(api);
+          
+          // Additional styling after load
+          setTimeout(() => {
+            const iframe = jitsiRef.current?.querySelector('iframe');
+            if (iframe) {
+              iframe.style.backgroundColor = 'black';
+            }
+          }, 1000);
         } else {
           const script = document.createElement('script');
           script.src = 'https://meet.jit.si/external_api.js';
@@ -44,6 +66,14 @@ export default function TeacherVideoCallPage() {
           script.onload = () => {
             const api = new window.JitsiMeetExternalAPI(domain, options);
             setJitsi(api);
+            
+            // Additional styling after load
+            setTimeout(() => {
+              const iframe = jitsiRef.current?.querySelector('iframe');
+              if (iframe) {
+                iframe.style.backgroundColor = 'black';
+              }
+            }, 1000);
           };
           document.body.appendChild(script);
         }
@@ -56,7 +86,6 @@ export default function TeacherVideoCallPage() {
       if (jitsi) {
         jitsi.dispose();
       }
-      // Also clean up any script we added
       const script = document.querySelector('script[src="https://meet.jit.si/external_api.js"]');
       if (script) {
         document.body.removeChild(script);
@@ -65,11 +94,10 @@ export default function TeacherVideoCallPage() {
   }, [jitsi]);
 
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-br from-purple-50 to-purple-200 dark:from-[#1a0e2a] dark:to-[#2e1e47] text-purple-900 dark:text-purple-200 p-6 space-y-6">
+    <main className="flex flex-col min-h-screen items-center justify-center bg-black text-white p-0">
       <div
         ref={jitsiRef}
-        className="w-full max-w-6xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-[#1f1a2e]"
-        style={{ minHeight: 600 }}
+        className="w-full h-screen bg-black"
       />
     </main>
   );

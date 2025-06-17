@@ -46,7 +46,7 @@ export default function Page() {
           </Text>
           <Stack
             direction={{ base: 'column', sm: 'row' }}
-            spacing={4}
+            spacing = {4} 
             pt={4}
             justify="center"
             align="center"
