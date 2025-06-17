@@ -28,7 +28,7 @@ export default function Page() {
       }}
     >
       <Container maxW="2xl" textAlign="center">
-        <VStack spacing={6}>
+        <VStack gap={6}>
           <Heading
             as="h1"
             size="3xl"
@@ -46,7 +46,7 @@ export default function Page() {
           </Text>
           <Stack
             direction={{ base: 'column', sm: 'row' }}
-            spacing = {4} 
+            gap = {4} 
             pt={4}
             justify="center"
             align="center"
