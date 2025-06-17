@@ -1,8 +1,8 @@
 import React from 'react'
-import { Navbar } from '../../components/ui/navbar'
+import { Navbar } from '../../../../components/ui/teacher-navbar'
 import { VStack, Box } from "@chakra-ui/react"
 
-const DashboardLayout = (props: { children: React.ReactNode }) => {
+const ClassroomLayout = (props: { children: React.ReactNode }) => {
   const { children } = props
   return (
     <>
@@ -14,4 +14,4 @@ const DashboardLayout = (props: { children: React.ReactNode }) => {
   )
 }
 
-export default DashboardLayout
+export default ClassroomLayout

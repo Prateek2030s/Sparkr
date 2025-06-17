@@ -29,8 +29,8 @@ const ClassCard = ({classItem}: ClassCardProps) => {
 
         </Card.Body>
         <Card.Footer gap="2">
-            <Button variant="surface" onClick={() => router.push(`/classroom/${classItem.classId}`)}> Enter class </Button>
-            <Button variant="ghost">View Settings</Button>
+            <Button variant="surface" onClick={() => router.push(`classroom/${classItem.classId}`)}> Enter class </Button>
+            {classItem.role == "teacher" && <Button variant="ghost">View Settings</Button>}
         </Card.Footer>
         </Card.Root>
   )

@@ -4,9 +4,9 @@ import { Center, For, HStack, Box, VStack } from "@chakra-ui/react"
 
 const TeacherDashboard = () => {
   const classes = [
-    {className: "Linear Algebra I", classDescription: "This is the introductory course to linear algebra and its applications", classId: 123456},
-    {className: "Calculus II", classDescription: "This is the introductory course to calculus and its applications", classId: 234567},
-    {className: "Statistics and Probability", classDescription: "This is the introductory course to statistics and probability and its applications", classId: 345678}
+    {className: "Linear Algebra I", classDescription: "This is the introductory course to linear algebra and its applications", classId: 123456, role: "teacher"},
+    {className: "Calculus II", classDescription: "This is the introductory course to calculus and its applications", classId: 234567, role: "teacher"},
+    {className: "Statistics and Probability", classDescription: "This is the introductory course to statistics and probability and its applications", classId: 345678, role: "teacher"}
   ]
 
   return (
