@@ -27,7 +27,7 @@ cd my-app
 npm install
 ```
 
-### 3. Additional Files required
+### 3. Environment SetUp
 
 #### - Create a .env.local file in my-app folder
 #### - Paste the following code inside
