@@ -18,7 +18,7 @@ Our project is an interactive educational tool designed to enhance remote learni
 ### 1. Clone the Repository
 
 ```
-git https://github.com/Prateek2030s/Sparkr.git
+git clone https://github.com/Prateek2030s/Sparkr.git
 ```
 
 ### 2. Install Dependencies
