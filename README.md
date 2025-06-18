@@ -29,4 +29,23 @@ npm install
 
 ### 3. Additional Files required
 
-#### Crate a .env.local file
+#### - Create a .env.local file
+#### - Paste the following code inside
+
+```
+# Firebase config (publicly exposed, but only to your app)
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCRHNE9POwyfhKm6ervbh-my5O8O7R-xx0
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=sparkr-a1398.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=sparkr-a1398
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=sparkr-a1398.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=642489838891
+NEXT_PUBLIC_FIREBASE_APP_ID=1:642489838891:web:1c2b3fcbd085044d07696e
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-YN393PBH3X
+
+# Liveblocks secret (only available server-side)
+LIVEBLOCKS_SECRET=pk_dev_LIy5UrW0710yvyckE3t5GEAvYSswZnfBP-LMQz6QKos8gBYa9T51NAp-iP_GW0BD
+
+# JWT secret
+JWT_SECRET=45bc5ee8d610e44c0ee6e15f44a19867
+```
+
