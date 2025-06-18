@@ -19,3 +19,14 @@ This is a web application built with **Next.js** and **Firebase** for features l
 ```
 git https://github.com/Prateek2030s/Sparkr.git
 ```
+
+### 2. Install Dependencies
+
+```
+cd my-app
+npm install
+```
+
+### 3. Additional Files required
+
+#### Crate a .env.local file
