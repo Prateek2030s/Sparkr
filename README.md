@@ -1,4 +1,4 @@
-# Sparkr
+# 🎓 Sparkr
 Team ID 17 LifeHack
 This is a web application built with **Next.js** and **Firebase** for features like authentication, analytics, and more.
 
@@ -29,7 +29,7 @@ npm install
 
 ### 3. Additional Files required
 
-#### - Create a .env.local file
+#### - Create a .env.local file in my-app folder
 #### - Paste the following code inside
 
 ```
@@ -47,5 +47,12 @@ LIVEBLOCKS_SECRET=pk_dev_LIy5UrW0710yvyckE3t5GEAvYSswZnfBP-LMQz6QKos8gBYa9T51NAp
 
 # JWT secret
 JWT_SECRET=45bc5ee8d610e44c0ee6e15f44a19867
+```
+
+### 4. Start Development Server
+
+```
+cd my-app
+npm run dev
 ```
 
