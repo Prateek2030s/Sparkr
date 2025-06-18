@@ -1,6 +1,6 @@
 # 🎓 Sparkr
 Team ID 17 LifeHack
-This is a web application built with **Next.js** and **Firebase**. 
+
 Our project is an interactive educational tool designed to enhance remote learning. It features integrated quizzes, real-time video conferencing, and student analytics to help educators track engagement and performance. Built with Next.js and Firebase, the platform supports a seamless and scalable learning experience.
 
 ---
