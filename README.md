@@ -12,12 +12,10 @@ This is a web application built with **Next.js** and **Firebase** for features l
 
 ---
 
-## Installation
+## Steps
 
 ### 1. Clone the Repository
 
-```bash
+```
 git https://github.com/Prateek2030s/Sparkr.git
-cd my-app
-npm install
 ```
