@@ -50,7 +50,7 @@ export const Navbar = () => {
             variant="ghost"
             color="white"
             _hover={{ color: 'teal.300', bg: 'transparent' }}
-            onClick={() => router.push('/quiz')}
+            onClick={() => router.push(`teacher/classroom/${classId}/quiz`)}
           >
             Quizzes
           </Button>

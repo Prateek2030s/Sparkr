@@ -14,7 +14,7 @@ import {
 import { useState, useEffect } from 'react';
 
 export default function TeacherCreateQuizPage() {
-  const { cid } = useParams();
+  const { classId } = useParams();
   const [quizName, setQuizName] = useState('');
   const [questions, setQuestions] = useState([
     { question: '', correctAnswer: '' },
@@ -22,13 +22,13 @@ export default function TeacherCreateQuizPage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(`quiz-${cid}`);
+    const stored = localStorage.getItem(`quiz-${classId}`);
     if (stored) {
       const parsed = JSON.parse(stored);
       setQuizName(parsed.name || '');
       setQuestions(parsed.questions || []);
     }
-  }, [cid]);
+  }, [classId]);
 
   const addQuestion = () => {
     setQuestions([...questions, { question: '', correctAnswer: '' }]);
@@ -53,14 +53,14 @@ export default function TeacherCreateQuizPage() {
       name: quizName,
       questions,
     };
-    localStorage.setItem(`quiz-${cid}`, JSON.stringify(quizData));
+    localStorage.setItem(`quiz-${classId}`, JSON.stringify(quizData));
     setSaved(true);
   };
 
   return (
     <Box maxW="700px" mx="auto" p={8}>
       <Heading size="lg" mb={6} textAlign="center">
-        {quizName.trim() ? quizName : `Create Custom Quiz — Classroom: ${cid}`}
+        {quizName.trim() ? quizName : `Create Custom Quiz — Classroom: ${classId}`}
       </Heading>
 
       <VStack gap={6} align="stretch">
@@ -111,7 +111,7 @@ export default function TeacherCreateQuizPage() {
         {saved && (
           <Box bg="green.50" p={4} borderRadius="md" borderWidth="1px">
             <Text fontWeight="semibold" color="green.700">
-              Quiz saved to your browser!
+              Quiz created!
             </Text>
           </Box>
         )}
