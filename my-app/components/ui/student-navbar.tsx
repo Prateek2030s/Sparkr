@@ -18,7 +18,7 @@ export const Navbar = () => {
         h="60px"
       >
         {/* Brand */}
-        <HStack spacing={2}>
+        <HStack gap={2}>
           <Icon as={HiAcademicCap} fontSize="2xl" color="white" />
           <Text fontSize="xl" fontWeight="bold" color="white">
             Sparkr
@@ -29,7 +29,7 @@ export const Navbar = () => {
 
         {/* Nav Links */}
         <HStack
-          spacing={6}
+          gap={6}
           display={{ base: 'none', md: 'flex' }}
           bg="gray.700"
           px={4}
@@ -76,7 +76,7 @@ export const Navbar = () => {
           py={1}
           borderRadius="md"
           fontSize="sm"
-          onClick={() => router.push('/logout')}
+          onClick={async () => {await fetch('/api/logout', {method: 'POST',}); router.push('/');}}
         >
           Logout
         </Button>

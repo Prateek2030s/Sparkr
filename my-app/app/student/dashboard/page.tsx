@@ -1,8 +1,11 @@
 'use client';
 
-import { Box, Heading, Text, SimpleGrid, Button, VStack, Container, Flex } from '@chakra-ui/react';
+import { Box, Heading, Text, SimpleGrid, Button, VStack, Container, Flex, HStack, Icon, Spacer} from '@chakra-ui/react';
 import React from 'react';
-import ClassCard from '../../../components/ui/class-card'; // Assuming this is Chakra-compatible or Tailwind-styled
+import ClassCard from '../../../components/ui/class-card';
+import { HiAcademicCap } from 'react-icons/hi2';
+import { useRouter } from 'next/navigation';
+
 
 const StudentDashboard = () => {
   const classes = [
@@ -26,11 +29,51 @@ const StudentDashboard = () => {
     }
   ];
 
+  const router = useRouter()
+
   return (
+    <>
+    <Box as="nav" w="full" bg="gray.800" shadow="md" py={3}>
+      <Flex
+        maxW="7xl"
+        mx="auto"
+        px={{ base: 4, md: 6, lg: 8 }}
+        align="center"
+        h="60px"
+      >
+        {/* Brand */}
+        <HStack gap={2}>
+          <Icon as={HiAcademicCap} fontSize="2xl" color="white" />
+          <Text fontSize="xl" fontWeight="bold" color="white">
+            Sparkr
+          </Text>
+        </HStack>
+
+        <Spacer />
+
+        {/* Logout */}
+        <Button
+          ml={4}
+          color="red.400"
+          border="1px solid"
+          borderColor="red.400"
+          bg="transparent"
+          _hover={{ bg: 'red.500', color: 'white' }}
+          px={4}
+          py={1}
+          borderRadius="md"
+          fontSize="sm"
+          onClick={async () => {await fetch('/api/logout', {method: 'POST',}); router.push('/');}}
+        >
+          Logout
+        </Button>
+      </Flex>
+    </Box>
+
     <Box bg="gray.900" color="white" minH="100vh" py={16} px={6}>
       <Container maxW="7xl">
         {/* Header Section */}
-        <VStack spacing={3} mb={12} align="center" textAlign="center">
+        <VStack gap={3} mb={12} align="center" textAlign="center">
           <Heading fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}>
             Your Enrolled Classes
           </Heading>
@@ -40,7 +83,7 @@ const StudentDashboard = () => {
         </VStack>
 
         {/* Class Cards Grid */}
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} mb={12}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8} mb={12}>
           {classes.map((item) => (
             <ClassCard key={item.classId} classItem={item} />
           ))}
@@ -65,6 +108,7 @@ const StudentDashboard = () => {
         </Flex>
       </Container>
     </Box>
+    </>
   );
 };
 

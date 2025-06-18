@@ -1,8 +1,10 @@
 'use client';
 
+import { Box, Heading, Text, SimpleGrid, Button, VStack, Container, Flex, HStack, Icon, Spacer, Stack, Grid} from '@chakra-ui/react';
 import React from 'react';
-import { Box, Button, Grid, Heading, Stack, Text, VStack, Flex } from '@chakra-ui/react';
-import ClassCard from '../../../components/ui/class-card'; // This must still support Chakra or Tailwind
+import ClassCard from '../../../components/ui/class-card';
+import { HiAcademicCap } from 'react-icons/hi2';
+import { useRouter } from 'next/navigation';
 
 const TeacherDashboard = () => {
   const classes = [
@@ -26,13 +28,53 @@ const TeacherDashboard = () => {
     },
   ];
 
+  const router = useRouter()
+
   return (
+    <>
+    <Box as="nav" w="full" bg="gray.800" shadow="md" py={3}>
+      <Flex
+        maxW="7xl"
+        mx="auto"
+        px={{ base: 4, md: 6, lg: 8 }}
+        align="center"
+        h="60px"
+      >
+        {/* Brand */}
+        <HStack gap={2}>
+          <Icon as={HiAcademicCap} fontSize="2xl" color="white" />
+          <Text fontSize="xl" fontWeight="bold" color="white">
+            Sparkr
+          </Text>
+        </HStack>
+
+        <Spacer />
+
+        {/* Logout */}
+        <Button
+          ml={4}
+          color="red.400"
+          border="1px solid"
+          borderColor="red.400"
+          bg="transparent"
+          _hover={{ bg: 'red.500', color: 'white' }}
+          px={4}
+          py={1}
+          borderRadius="md"
+          fontSize="sm"
+          onClick={async () => {await fetch('/api/logout', {method: 'POST',}); router.push('/');}}
+        >
+          Logout
+        </Button>
+      </Flex>
+    </Box>
+
     <Box bg="gray.900" minH="100vh" color="white" py={10} px={4}>
       <Flex justify="center">
         <Box w="full" maxW="7xl">
-          <Stack spacing={10}>
+          <Stack gap={10}>
             {/* Header */}
-            <VStack spacing={1} textAlign="center">
+            <VStack gap={1} textAlign="center">
               <Heading fontSize="3xl">Your Classes</Heading>
               <Text color="gray.400">Manage the courses you're teaching</Text>
             </VStack>
@@ -64,6 +106,7 @@ const TeacherDashboard = () => {
         </Box>
       </Flex>
     </Box>
+    </>
   );
 };
 

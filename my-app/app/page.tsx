@@ -1,90 +1,116 @@
-'use client';
+// app/page.tsx
+"use client";
 
-import Link from 'next/link';
+import { keyframes } from "@emotion/react";
 import {
   Box,
-  Button,
   Container,
+  Flex,
   Heading,
-  Stack,
   Text,
-  VStack,
-} from '@chakra-ui/react';
+  Button,
+  Image,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
-export default function Page() {
+// Pulsing glow + slight pop
+const pulse = keyframes`
+  0%   { box-shadow: 0 0 12px rgba(59,130,246,0.8); transform: scale(1); }
+  50%  { box-shadow: 0 0 24px rgba(59,130,246,1);   transform: scale(1.03); }
+  100% { box-shadow: 0 0 12px rgba(59,130,246,0.8); transform: scale(1); }
+`;
+
+export default function HomePage() {
   return (
     <Box
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgGradient="linear(to-br, #f3e8ff, #d6bcfa)"
-      color="gray.900"
-      px={6}
-      py={12}
-      _dark={{
-        bgGradient: 'linear(to-br, #1a0e2a, #2e1e47)',
-        color: 'white',
-      }}
+      as="main"
+      w="100vw"
+      h="100vh"
+      position="relative"
+      overflow="hidden"
+      bg="#0b1120"
+      color="white"
     >
-      <Container maxW="2xl" textAlign="center">
-        <VStack gap={6}>
-          <Heading
-            as="h1"
-            size="3xl"
-            fontWeight="extrabold"
-            color="purple.700"
-            _dark={{ color: 'purple.300' }}
-          >
-            Welcome to{' '}
-            <Box as="span" color="purple.900" _dark={{ color: 'purple.400' }}>
-              Sparkr
-            </Box>
-          </Heading>
-          <Text fontSize={{ base: 'lg', sm: 'xl' }} color="purple.800" _dark={{ color: 'purple.200' }}>
-            A smarter way to connect, learn, and grow. Choose your role to get started.
-          </Text>
-          <Stack
-            direction={{ base: 'column', sm: 'row' }}
-            gap = {4} 
-            pt={4}
-            justify="center"
-            align="center"
-          >
-            <Link href="/studentJoin" passHref>
+      <Container maxW="7xl" h="100%" p={0} pl={{ base: 4, md: 16 }}>
+        <Flex
+          h="100%"
+          direction={{ base: "column", md: "row" }}
+          align="center"
+          justify="space-between"
+          wrap="nowrap"
+        >
+          {/* Left column: logo, headline & CTA */}
+          <Box flex="1" minW={0} textAlign={{ base: "center", md: "left" }}>
+            {/* full‐width logo with preserved aspect ratio */}
+            <Image
+              src="/sparkr-logo.png"
+              alt="Sparkr logo"
+              maxW={{ base: "120px", md: "160px", lg: "200px" }}
+              w="auto"
+              h="auto"
+              objectFit="contain"
+              mb={4}
+              mx={{ base: "auto", md: 0 }}
+            />
+
+            {/* Sub‐headline */}
+            <Heading
+              as="h2"
+              fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+              fontWeight="normal"
+              lineHeight="shorter"
+              color="brand.400"
+              mb={6}
+            >
+              Ignite a new way of learning
+            </Heading>
+
+            {/* Get Started button */}
+            <Link href="/auth" passHref>
               <Button
                 as="a"
                 size="lg"
-                bg="purple.700"
-                color="white"
-                _hover={{ bg: 'purple.800' }}
-                rounded="full"
-                shadow="md"
+                fontSize={{ base: "md", md: "lg" }}
+                bg="brand.500"
+                _hover={{ bg: "brand.600", transform: "scale(1.02)" }}
+                px={{ base: 6, md: 8 }}
+                animation={`${pulse} 1.5s ease-in-out infinite`}
               >
-                I'm a Student
+                Get Started
               </Button>
             </Link>
-            <Link href="/teacherJoin" passHref>
-              <Button
-                as="a"
-                size="lg"
-                variant="outline"
-                color="purple.700"
-                borderColor="purple.700"
-                _dark={{
-                  color: 'purple.300',
-                  borderColor: 'purple.300',
-                  _hover: { bg: 'purple.900' },
-                }}
-                _hover={{ bg: 'purple.100' }}
-                rounded="full"
-                shadow="md"
-              >
-                I'm a Teacher
-              </Button>
-            </Link>
-          </Stack>
-        </VStack>
+          </Box>
+
+          {/* Right column: rocket image + fades */}
+          <Box flex="1" minW={0} position="relative" h="100%">
+            <Image
+              src="/rocket.png"
+              alt="Rocket taking off"
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              draggable={false}
+            />
+            {/* Left fade overlay */}
+            <Box
+              position="absolute"
+              top={0}
+              left={0}
+              h="100%"
+              w={{ base: "20%", md: "10%" }}
+              bgGradient="linear(to-r, #0b1120, transparent)"
+            />
+            {/* Right fade overlay */}
+            <Box
+              position="absolute"
+              top={0}
+              right={0}
+              h="100%"
+              w={{ base: "20%", md: "10%" }}
+              bgGradient="linear(to-l, #0b1120, transparent)"
+            />
+          </Box>
+        </Flex>
       </Container>
     </Box>
   );
